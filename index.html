@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual de Usuario - Sistema de Registro de Visitas</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .header h1 {
+        color: #2c3e50;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .header p {
+        color: #7f8c8d;
+        font-size: 1.1em;
+      }
+
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: transform 0.3s ease;
+      }
+
+      .content-section:hover {
+        transform: translateY(-5px);
+      }
+
+      .section-title {
+        color: #2c3e50;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #3498db;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+      }
+
+      .step-container {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 15px 0;
+        border-left: 5px solid #3498db;
+      }
+
+      .step-number {
+        background: #3498db;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+      }
+
+      .step-title {
+        color: #2c3e50;
+        font-size: 1.3em;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .step-description {
+        color: #5a6c7d;
+        margin-left: 45px;
+      }
+
+      .warning {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        border: 1px solid #e74c3c;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 15px 0;
+      }
+
+      .warning-title {
+        color: #c0392b;
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .info {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        border: 1px solid #17a2b8;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 15px 0;
+      }
+
+      .info-title {
+        color: #138496;
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .table-example {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .table-example th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      .table-example td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .table-example tr:hover {
+        background: #f8f9fa;
+      }
+
+      .highlight {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-weight: bold;
+        color: #d35400;
+      }
+
+      .nav-menu {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .nav-menu ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .nav-menu a {
+        color: #2c3e50;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-weight: bold;
+      }
+
+      .nav-menu a:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .header h1 {
+          font-size: 2em;
+        }
+
+        .content-section {
+          padding: 20px;
+        }
+
+        .nav-menu ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>📋 Manual de Usuario</h1>
+        <p>Sistema de Registro de Visitas</p>
+      </div>
+
+      <div class="nav-menu">
+        <ul>
+          <li><a href="#introduccion">🏠 Introducción</a></li>
+          <li><a href="#acceso">🔐 Acceso al Sistema</a></li>
+          <li><a href="#formulario">📝 Completar Formulario</a></li>
+          <li><a href="#horarios">⏰ Registro de Horarios</a></li>
+          <li><a href="#actividades">🎯 Registro de Actividades</a></li>
+          <li><a href="#documentos">📄 Intercambio de Documentos</a></li>
+          <li><a href="#consejos">💡 Consejos y Recomendaciones</a></li>
+        </ul>
+      </div>
+
+      <div class="content-section" id="introduccion">
+        <h2 class="section-title">
+          <span class="icon">🏠</span>
+          Introducción al Sistema
+        </h2>
+        <p>
+          El Sistema de Registro de Visitas es una herramienta digital diseñada
+          para documentar y gestionar las visitas realizadas a diferentes
+          sucursales de la organización. Este sistema permite registrar horarios
+          de ingreso y egreso, actividades realizadas e intercambio de
+          documentación de manera eficiente y organizada.
+        </p>
+
+        <div class="info">
+          <div class="info-title">📚 Documento de Referencia</div>
+          <p>
+            Para completar este formulario, siempre utilice como referencia el
+            instructivo <span class="highlight">I-RD-01</span> disponible en la
+            carpeta "Calidad Genéricos/Instructivos".
+          </p>
+        </div>
+      </div>
+
+      <div class="content-section" id="acceso">
+        <h2 class="section-title">
+          <span class="icon">🔐</span>
+          Acceso al Sistema
+        </h2>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">1</span>
+            Ingreso a la Aplicación
+          </div>
+          <div class="step-description">
+            Acceda al sistema a través del enlace:
+            <strong>https://registro-visitas-delta.vercel.app/</strong>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">2</span>
+            Verificación de Conectividad
+          </div>
+          <div class="step-description">
+            Asegúrese de tener una conexión estable a internet para garantizar
+            que los datos se registren correctamente.
+          </div>
+        </div>
+
+        <div class="warning">
+          <div class="warning-title">⚠️ Importante</div>
+          <p>
+            Mantenga el instructivo I-RD-01 a mano durante todo el proceso de
+            registro para consultar procedimientos específicos.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-section" id="formulario">
+        <h2 class="section-title">
+          <span class="icon">📝</span>
+          Estructura del Formulario
+        </h2>
+
+        <p>
+          El formulario está dividido en las siguientes secciones principales:
+        </p>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">1</span>
+            Horarios de Sucursales
+          </div>
+          <div class="step-description">
+            Registre los horarios de ingreso y egreso para las Sucursal 1 y
+            Sucursal 2, incluyendo las firmas de los responsables.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">2</span>
+            Detalle de Actividades
+          </div>
+          <div class="step-description">
+            Documente las actividades realizadas con horarios de inicio y
+            finalización, área/sector y descripción detallada.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">3</span>
+            Intercambio de Documentación
+          </div>
+          <div class="step-description">
+            Registre los documentos entregados y recibidos durante la visita,
+            incluyendo las firmas correspondientes.
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section" id="horarios">
+        <h2 class="section-title">
+          <span class="icon">⏰</span>
+          Registro de Horarios de Sucursales
+        </h2>
+
+        <h3>Sucursal 1</h3>
+        <table class="table-example">
+          <thead>
+            <tr>
+              <th>Horario de Ingreso</th>
+              <th>Horario de Egreso</th>
+              <th>Firma y Aclaración del Responsable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>--:-- (formato HH:MM)</td>
+              <td>--:-- (formato HH:MM)</td>
+              <td>Firma manuscrita + nombre y apellido</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Sucursal 2</h3>
+        <table class="table-example">
+          <thead>
+            <tr>
+              <th>Horario de Ingreso</th>
+              <th>Horario de Egreso</th>
+              <th>Firma y Aclaración del Responsable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>--:-- (formato HH:MM)</td>
+              <td>--:-- (formato HH:MM)</td>
+              <td>Firma manuscrita + nombre y apellido</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info">
+          <div class="info-title">💡 Formato de Hora</div>
+          <p>
+            Utilice el formato de 24 horas (HH:MM). Ejemplo: 14:30 para las 2:30
+            PM.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-section" id="actividades">
+        <h2 class="section-title">
+          <span class="icon">🎯</span>
+          Registro de Actividades
+        </h2>
+
+        <table class="table-example">
+          <thead>
+            <tr>
+              <th>Hs. Inicio</th>
+              <th>Hs. Finalización</th>
+              <th>Área/Sector de la Sucursal</th>
+              <th>Descripción de la Actividad</th>
+              <th>¿Actividad Finalizada? (S/N)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>--:--</td>
+              <td>--:--</td>
+              <td>Nombre del área o sector</td>
+              <td>Descripción detallada de la actividad</td>
+              <td>S (Sí) o N (No)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">1</span>
+            Horario de Inicio
+          </div>
+          <div class="step-description">
+            Registre la hora exacta en que comenzó la actividad en formato HH:MM
+            (24 horas).
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">2</span>
+            Horario de Finalización
+          </div>
+          <div class="step-description">
+            Complete la hora en que finalizó la actividad. Si la actividad
+            continúa, puede dejar este campo para completar posteriormente.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">3</span>
+            Área o Sector
+          </div>
+          <div class="step-description">
+            Especifique claramente el área, departamento o sector de la sucursal
+            donde se realizó la actividad.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">4</span>
+            Descripción de Actividad
+          </div>
+          <div class="step-description">
+            Proporcione una descripción detallada y clara de la actividad
+            realizada, incluyendo objetivos y resultados si corresponde.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">5</span>
+            Estado de Finalización
+          </div>
+          <div class="step-description">
+            Indique con "S" (Sí) si la actividad fue completada totalmente, o
+            "N" (No) si quedaron tareas pendientes.
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section" id="documentos">
+        <h2 class="section-title">
+          <span class="icon">📄</span>
+          Intercambio de Documentación
+        </h2>
+
+        <h3>Documentos Entregados</h3>
+        <table class="table-example">
+          <thead>
+            <tr>
+              <th>Nombre del Documento que Usted Entrega</th>
+              <th>Firma y Aclaración de quien Recibió la Documentación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nombre completo y específico del documento</td>
+              <td>Firma manuscrita + nombre y apellido del receptor</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Documentos Recibidos</h3>
+        <table class="table-example">
+          <thead>
+            <tr>
+              <th>Nombre del Documento que Usted Recibe</th>
+              <th>Firma y Aclaración de quien Entregó la Documentación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nombre completo y específico del documento</td>
+              <td>Firma manuscrita + nombre y apellido del entregador</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="warning">
+          <div class="warning-title">📋 Importante para Documentación</div>
+          <p>
+            Asegúrese de que todos los documentos intercambiados estén
+            claramente identificados y que las firmas sean legibles. Esto es
+            crucial para la trazabilidad y auditoria.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-section" id="consejos">
+        <h2 class="section-title">
+          <span class="icon">💡</span>
+          Consejos y Recomendaciones
+        </h2>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">✓</span>
+            Precisión en Horarios
+          </div>
+          <div class="step-description">
+            Registre siempre la hora exacta. La precisión en los horarios es
+            fundamental para el seguimiento y control de actividades.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">✓</span>
+            Claridad en Descripciones
+          </div>
+          <div class="step-description">
+            Use un lenguaje claro y específico en las descripciones de
+            actividades. Evite abreviaciones que puedan generar confusión.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">✓</span>
+            Verificación de Datos
+          </div>
+          <div class="step-description">
+            Revise todos los datos ingresados antes de finalizar el registro.
+            Una vez enviado, puede ser difícil modificar la información.
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-title">
+            <span class="step-number">✓</span>
+            Consulta del Instructivo
+          </div>
+          <div class="step-description">
+            Ante cualquier duda, consulte el instructivo I-RD-01. Este documento
+            contiene información detallada sobre procedimientos específicos.
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="info-title">🔍 Soporte Técnico</div>
+          <p>
+            Si experimenta problemas técnicos con el sistema o necesita
+            asistencia adicional, contacte al área de sistemas o consulte la
+            documentación técnica disponible.
+          </p>
+        </div>
+
+        <div class="warning">
+          <div class="warning-title">🔒 Confidencialidad</div>
+          <p>
+            Recuerde que toda la información registrada en este sistema debe ser
+            tratada de manera confidencial y de acuerdo a las políticas de
+            privacidad de la organización.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
