@@ -1,615 +1,913 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual de Usuario - Sistema de Registro de Visitas</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .header {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        padding: 30px;
-        text-align: center;
-        margin-bottom: 30px;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-      }
-
-      .header h1 {
-        color: #2c3e50;
-        font-size: 2.5em;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .header p {
-        color: #7f8c8d;
-        font-size: 1.1em;
-      }
-
-      .content-section {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        padding: 30px;
-        margin-bottom: 25px;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        transition: transform 0.3s ease;
-      }
-
-      .content-section:hover {
-        transform: translateY(-5px);
-      }
-
-      .section-title {
-        color: #2c3e50;
-        font-size: 1.8em;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 3px solid #3498db;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .icon {
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-      }
-
-      .step-container {
-        background: #f8f9fa;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 15px 0;
-        border-left: 5px solid #3498db;
-      }
-
-      .step-number {
-        background: #3498db;
-        color: white;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        margin-right: 15px;
-      }
-
-      .step-title {
-        color: #2c3e50;
-        font-size: 1.3em;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-      }
-
-      .step-description {
-        color: #5a6c7d;
-        margin-left: 45px;
-      }
-
-      .warning {
-        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-        border: 1px solid #e74c3c;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 15px 0;
-      }
-
-      .warning-title {
-        color: #c0392b;
-        font-weight: bold;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .info {
-        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        border: 1px solid #17a2b8;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 15px 0;
-      }
-
-      .info-title {
-        color: #138496;
-        font-weight: bold;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .table-example {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 15px 0;
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      .table-example th {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 12px;
-        text-align: left;
-        font-weight: bold;
-      }
-
-      .table-example td {
-        padding: 12px;
-        border-bottom: 1px solid #eee;
-      }
-
-      .table-example tr:hover {
-        background: #f8f9fa;
-      }
-
-      .highlight {
-        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        padding: 3px 8px;
-        border-radius: 5px;
-        font-weight: bold;
-        color: #d35400;
-      }
-
-      .nav-menu {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 30px;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-      }
-
-      .nav-menu ul {
-        list-style: none;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-      }
-
-      .nav-menu a {
-        color: #2c3e50;
-        text-decoration: none;
-        padding: 8px 16px;
-        border-radius: 20px;
-        transition: all 0.3s ease;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        font-weight: bold;
-      }
-
-      .nav-menu a:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      @media (max-width: 768px) {
-        .container {
-          padding: 10px;
+        @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #000000;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0669b3 0%, #368aca 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
         .header h1 {
-          font-size: 2em;
+            font-family: 'Mulish', sans-serif;
+            font-weight: 800;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-
-        .content-section {
-          padding: 20px;
+        
+        .header p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2em;
+            opacity: 0.95;
         }
-
-        .nav-menu ul {
-          flex-direction: column;
-          align-items: center;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-      }
+        
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid #0669b3;
+        }
+        
+        .section h2 {
+            font-family: 'Mulish', sans-serif;
+            font-weight: 700;
+            color: #0669b3;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #368aca;
+        }
+        
+        .section h3 {
+            font-family: 'Mulish', sans-serif;
+            font-weight: 600;
+            color: #368aca;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .section h4 {
+            font-family: 'Mulish', sans-serif;
+            font-weight: 600;
+            color: #0669b3;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .subsection {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        
+        .field-description {
+            background: #f8f9fa;
+            border-left: 3px solid #368aca;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .field-name {
+            font-family: 'Mulish', sans-serif;
+            font-weight: bold;
+            color: #0669b3;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        
+        .important-note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .important-note::before {
+            content: "⚠️ ";
+            font-weight: bold;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0669b3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box::before {
+            content: "ℹ️ ";
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        th {
+            font-family: 'Mulish', sans-serif;
+            background: #0669b3;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+        
+        .steps li {
+            counter-increment: step-counter;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: #0669b3;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .footer {
+            background: #000000;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+        
+        @media print {
+            .header {
+                background: #0669b3;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        ul li {
+            margin: 8px 0;
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h1>📋 Manual de Usuario</h1>
-        <p>Sistema de Registro de Visitas</p>
-      </div>
-
-      <div class="nav-menu">
-        <ul>
-          <li><a href="#introduccion">🏠 Introducción</a></li>
-          <li><a href="#acceso">🔐 Acceso al Sistema</a></li>
-          <li><a href="#formulario">📝 Completar Formulario</a></li>
-          <li><a href="#horarios">⏰ Registro de Horarios</a></li>
-          <li><a href="#actividades">🎯 Registro de Actividades</a></li>
-          <li><a href="#documentos">📄 Intercambio de Documentos</a></li>
-          <li><a href="#consejos">💡 Consejos y Recomendaciones</a></li>
-        </ul>
-      </div>
-
-      <div class="content-section" id="introduccion">
-        <h2 class="section-title">
-          <span class="icon">🏠</span>
-          Introducción al Sistema
-        </h2>
-        <p>
-          El Sistema de Registro de Visitas es una herramienta digital diseñada
-          para documentar y gestionar las visitas realizadas a diferentes
-          sucursales de la organización. Este sistema permite registrar horarios
-          de ingreso y egreso, actividades realizadas e intercambio de
-          documentación de manera eficiente y organizada.
-        </p>
-
-        <div class="info">
-          <div class="info-title">📚 Documento de Referencia</div>
-          <p>
-            Para completar este formulario, siempre utilice como referencia el
-            instructivo <span class="highlight">I-RD-01</span> disponible en la
-            carpeta "Calidad Genéricos/Instructivos".
-          </p>
-        </div>
-      </div>
-
-      <div class="content-section" id="acceso">
-        <h2 class="section-title">
-          <span class="icon">🔐</span>
-          Acceso al Sistema
-        </h2>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">1</span>
-            Ingreso a la Aplicación
-          </div>
-          <div class="step-description">
-            Acceda al sistema a través del enlace:
-            <strong>https://registro-visitas-delta.vercel.app/</strong>
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">2</span>
-            Verificación de Conectividad
-          </div>
-          <div class="step-description">
-            Asegúrese de tener una conexión estable a internet para garantizar
-            que los datos se registren correctamente.
-          </div>
-        </div>
-
-        <div class="warning">
-          <div class="warning-title">⚠️ Importante</div>
-          <p>
-            Mantenga el instructivo I-RD-01 a mano durante todo el proceso de
-            registro para consultar procedimientos específicos.
-          </p>
-        </div>
-      </div>
-
-      <div class="content-section" id="formulario">
-        <h2 class="section-title">
-          <span class="icon">📝</span>
-          Estructura del Formulario
-        </h2>
-
-        <p>
-          El formulario está dividido en las siguientes secciones principales:
-        </p>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">1</span>
-            Horarios de Sucursales
-          </div>
-          <div class="step-description">
-            Registre los horarios de ingreso y egreso para las Sucursal 1 y
-            Sucursal 2, incluyendo las firmas de los responsables.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">2</span>
-            Detalle de Actividades
-          </div>
-          <div class="step-description">
-            Documente las actividades realizadas con horarios de inicio y
-            finalización, área/sector y descripción detallada.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">3</span>
-            Intercambio de Documentación
-          </div>
-          <div class="step-description">
-            Registre los documentos entregados y recibidos durante la visita,
-            incluyendo las firmas correspondientes.
-          </div>
-        </div>
-      </div>
-
-      <div class="content-section" id="horarios">
-        <h2 class="section-title">
-          <span class="icon">⏰</span>
-          Registro de Horarios de Sucursales
-        </h2>
-
-        <h3>Sucursal 1</h3>
-        <table class="table-example">
-          <thead>
-            <tr>
-              <th>Horario de Ingreso</th>
-              <th>Horario de Egreso</th>
-              <th>Firma y Aclaración del Responsable</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>--:-- (formato HH:MM)</td>
-              <td>--:-- (formato HH:MM)</td>
-              <td>Firma manuscrita + nombre y apellido</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Sucursal 2</h3>
-        <table class="table-example">
-          <thead>
-            <tr>
-              <th>Horario de Ingreso</th>
-              <th>Horario de Egreso</th>
-              <th>Firma y Aclaración del Responsable</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>--:-- (formato HH:MM)</td>
-              <td>--:-- (formato HH:MM)</td>
-              <td>Firma manuscrita + nombre y apellido</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="info">
-          <div class="info-title">💡 Formato de Hora</div>
-          <p>
-            Utilice el formato de 24 horas (HH:MM). Ejemplo: 14:30 para las 2:30
-            PM.
-          </p>
-        </div>
-      </div>
-
-      <div class="content-section" id="actividades">
-        <h2 class="section-title">
-          <span class="icon">🎯</span>
-          Registro de Actividades
-        </h2>
-
-        <table class="table-example">
-          <thead>
-            <tr>
-              <th>Hs. Inicio</th>
-              <th>Hs. Finalización</th>
-              <th>Área/Sector de la Sucursal</th>
-              <th>Descripción de la Actividad</th>
-              <th>¿Actividad Finalizada? (S/N)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>--:--</td>
-              <td>--:--</td>
-              <td>Nombre del área o sector</td>
-              <td>Descripción detallada de la actividad</td>
-              <td>S (Sí) o N (No)</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">1</span>
-            Horario de Inicio
-          </div>
-          <div class="step-description">
-            Registre la hora exacta en que comenzó la actividad en formato HH:MM
-            (24 horas).
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">2</span>
-            Horario de Finalización
-          </div>
-          <div class="step-description">
-            Complete la hora en que finalizó la actividad. Si la actividad
-            continúa, puede dejar este campo para completar posteriormente.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">3</span>
-            Área o Sector
-          </div>
-          <div class="step-description">
-            Especifique claramente el área, departamento o sector de la sucursal
-            donde se realizó la actividad.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">4</span>
-            Descripción de Actividad
-          </div>
-          <div class="step-description">
-            Proporcione una descripción detallada y clara de la actividad
-            realizada, incluyendo objetivos y resultados si corresponde.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">5</span>
-            Estado de Finalización
-          </div>
-          <div class="step-description">
-            Indique con "S" (Sí) si la actividad fue completada totalmente, o
-            "N" (No) si quedaron tareas pendientes.
-          </div>
-        </div>
-      </div>
-
-      <div class="content-section" id="documentos">
-        <h2 class="section-title">
-          <span class="icon">📄</span>
-          Intercambio de Documentación
-        </h2>
-
-        <h3>Documentos Entregados</h3>
-        <table class="table-example">
-          <thead>
-            <tr>
-              <th>Nombre del Documento que Usted Entrega</th>
-              <th>Firma y Aclaración de quien Recibió la Documentación</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Nombre completo y específico del documento</td>
-              <td>Firma manuscrita + nombre y apellido del receptor</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Documentos Recibidos</h3>
-        <table class="table-example">
-          <thead>
-            <tr>
-              <th>Nombre del Documento que Usted Recibe</th>
-              <th>Firma y Aclaración de quien Entregó la Documentación</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Nombre completo y específico del documento</td>
-              <td>Firma manuscrita + nombre y apellido del entregador</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="warning">
-          <div class="warning-title">📋 Importante para Documentación</div>
-          <p>
-            Asegúrese de que todos los documentos intercambiados estén
-            claramente identificados y que las firmas sean legibles. Esto es
-            crucial para la trazabilidad y auditoria.
-          </p>
-        </div>
-      </div>
-
-      <div class="content-section" id="consejos">
-        <h2 class="section-title">
-          <span class="icon">💡</span>
-          Consejos y Recomendaciones
-        </h2>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">✓</span>
-            Precisión en Horarios
-          </div>
-          <div class="step-description">
-            Registre siempre la hora exacta. La precisión en los horarios es
-            fundamental para el seguimiento y control de actividades.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">✓</span>
-            Claridad en Descripciones
-          </div>
-          <div class="step-description">
-            Use un lenguaje claro y específico en las descripciones de
-            actividades. Evite abreviaciones que puedan generar confusión.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">✓</span>
-            Verificación de Datos
-          </div>
-          <div class="step-description">
-            Revise todos los datos ingresados antes de finalizar el registro.
-            Una vez enviado, puede ser difícil modificar la información.
-          </div>
-        </div>
-
-        <div class="step-container">
-          <div class="step-title">
-            <span class="step-number">✓</span>
-            Consulta del Instructivo
-          </div>
-          <div class="step-description">
-            Ante cualquier duda, consulte el instructivo I-RD-01. Este documento
-            contiene información detallada sobre procedimientos específicos.
-          </div>
-        </div>
-
-        <div class="info">
-          <div class="info-title">🔍 Soporte Técnico</div>
-          <p>
-            Si experimenta problemas técnicos con el sistema o necesita
-            asistencia adicional, contacte al área de sistemas o consulte la
-            documentación técnica disponible.
-          </p>
-        </div>
-
-        <div class="warning">
-          <div class="warning-title">🔒 Confidencialidad</div>
-          <p>
-            Recuerde que toda la información registrada en este sistema debe ser
-            tratada de manera confidencial y de acuerdo a las políticas de
-            privacidad de la organización.
-          </p>
-        </div>
-      </div>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 MANUAL DE USUARIO</h1>
+        <p>Sistema de Registro de Visitas - Manzur Administraciones</p>
     </div>
-  </body>
+    
+    <div class="container">
+        <!-- Sección 1: Introducción -->
+        <div class="section">
+            <h2>1. INTRODUCCIÓN</h2>
+            <p>El Sistema de Registro de Visitas es una aplicación web desarrollada para Manzur Administraciones que permite documentar de forma digital y estructurada todas las visitas realizadas a las sucursales de la empresa.</p>
+            
+            <div class="info-box">
+                <strong>Objetivo del Sistema:</strong> Mantener un registro ordenado, completo y accesible de todas las actividades realizadas por visitantes en las distintas sucursales, cumpliendo con los estándares de calidad establecidos por la organización.
+            </div>
+            
+            <h3>1.1 Características Principales</h3>
+            <ul>
+                <li>Formulario digital estructurado según el instructivo I-RD-01</li>
+                <li>Registro de múltiples sucursales (hasta 2 por visita)</li>
+                <li>Control de horarios de ingreso y egreso</li>
+                <li>Documentación de actividades realizadas</li>
+                <li>Registro de documentación entregada y recibida</li>
+                <li>Interfaz intuitiva y fácil de usar</li>
+                <li>Acceso desde cualquier dispositivo con navegador web</li>
+            </ul>
+        </div>
+        
+        <!-- Sección 2: Acceso al Sistema -->
+        <div class="section">
+            <h2>2. ACCESO AL SISTEMA</h2>
+            
+            <h3>2.1 Requisitos Técnicos</h3>
+            <table>
+                <tr>
+                    <th>Requisito</th>
+                    <th>Especificación</th>
+                </tr>
+                <tr>
+                    <td>Dispositivo</td>
+                    <td>Computadora, tablet o smartphone</td>
+                </tr>
+                <tr>
+                    <td>Navegador Web</td>
+                    <td>Chrome, Firefox, Safari, Edge (versiones actualizadas)</td>
+                </tr>
+                <tr>
+                    <td>Conexión a Internet</td>
+                    <td>Requerida para acceder y completar el formulario</td>
+                </tr>
+                <tr>
+                    <td>Resolución Recomendada</td>
+                    <td>Mínimo 1024x768 píxeles</td>
+                </tr>
+            </table>
+            
+            <h3>2.2 URL de Acceso</h3>
+            <div class="info-box">
+                <strong>Dirección del Sistema:</strong><br>
+                <code style="background: white; padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 10px;">
+                    https://registro-visitas-delta.vercel.app/
+                </code>
+            </div>
+            
+            <div class="important-note">
+                Guarde esta dirección en sus favoritos para acceder rápidamente al sistema cuando lo necesite.
+            </div>
+        </div>
+        
+        <!-- Sección 3: Estructura del Formulario -->
+        <div class="section">
+            <h2>3. ESTRUCTURA DEL FORMULARIO</h2>
+            <p>El formulario está organizado en secciones lógicas que reflejan el flujo de una visita a las sucursales.</p>
+            
+            <h3>3.1 Sección: Información de Sucursales</h3>
+            <p>Esta sección permite registrar la visita a hasta dos sucursales diferentes en el mismo formulario.</p>
+            
+            <div class="subsection">
+                <h4>SUCURSAL 1</h4>
+                
+                <div class="field-description">
+                    <div class="field-name">HORARIO DE INGRESO A LA SUCURSAL 1</div>
+                    <p><strong>Formato:</strong> HH:MM (24 horas)</p>
+                    <p><strong>Descripción:</strong> Registre la hora exacta en que ingresó a la primera sucursal.</p>
+                    <p><strong>Ejemplo:</strong> 09:30, 14:15, 08:00</p>
+                </div>
+                
+                <div class="field-description">
+                    <div class="field-name">HORARIO DE EGRESO DE LA SUCURSAL 1</div>
+                    <p><strong>Formato:</strong> HH:MM (24 horas)</p>
+                    <p><strong>Descripción:</strong> Registre la hora exacta en que salió de la primera sucursal.</p>
+                    <p><strong>Ejemplo:</strong> 11:45, 16:30, 12:00</p>
+                </div>
+                
+                <div class="field-description">
+                    <div class="field-name">FIRMA Y ACLARACIÓN DEL RESPONSABLE DE SUCURSAL 1</div>
+                    <p><strong>Formato:</strong> Texto libre</p>
+                    <p><strong>Descripción:</strong> Espacio destinado para que el responsable de la sucursal firme y aclare su nombre, validando la visita.</p>
+                    <p><strong>Contenido sugerido:</strong> Nombre completo, cargo, firma digital o manuscrita</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>SUCURSAL 2</h4>
+                
+                <div class="field-description">
+                    <div class="field-name">HORARIO DE INGRESO A LA SUCURSAL 2</div>
+                    <p><strong>Formato:</strong> HH:MM (24 horas)</p>
+                    <p><strong>Descripción:</strong> Si visitó una segunda sucursal, registre la hora de ingreso.</p>
+                    <p><strong>Nota:</strong> Este campo es opcional. Complételo solo si visitó más de una sucursal.</p>
+                </div>
+                
+                <div class="field-description">
+                    <div class="field-name">HORARIO DE EGRESO DE LA SUCURSAL 2</div>
+                    <p><strong>Formato:</strong> HH:MM (24 horas)</p>
+                    <p><strong>Descripción:</strong> Hora de salida de la segunda sucursal.</p>
+                </div>
+                
+                <div class="field-description">
+                    <div class="field-name">FIRMA Y ACLARACIÓN DEL RESPONSABLE DE SUCURSAL 2</div>
+                    <p><strong>Formato:</strong> Texto libre</p>
+                    <p><strong>Descripción:</strong> Validación del responsable de la segunda sucursal.</p>
+                </div>
+            </div>
+            
+            <h3>3.2 Sección: Detalle de Actividades</h3>
+            <p>Esta sección permite registrar las actividades específicas realizadas durante la visita.</p>
+            
+            <div class="field-description">
+                <div class="field-name">HS. INICIO</div>
+                <p><strong>Formato:</strong> HH:MM</p>
+                <p><strong>Descripción:</strong> Hora en que comenzó la actividad específica dentro de la sucursal.</p>
+                <p><strong>Ejemplo:</strong> Si ingresó a las 09:00 pero comenzó una reunión a las 09:15, registre 09:15</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">HS. FINALIZACIÓN</div>
+                <p><strong>Formato:</strong> HH:MM</p>
+                <p><strong>Descripción:</strong> Hora en que finalizó la actividad específica.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">AREA/SECTOR DE LA SUCURSAL</div>
+                <p><strong>Formato:</strong> Texto libre</p>
+                <p><strong>Descripción:</strong> Identifique el área o sector específico donde se realizó la actividad.</p>
+                <p><strong>Ejemplos:</strong></p>
+                <ul>
+                    <li>Caja</li>
+                    <li>Depósito</li>
+                    <li>Planta</li>
+                    <li>Gerencia</li>
+                    <li>Administración</li>
+                    <li>Etc...</li>
+                    
+                </ul>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">DESCRIPCIÓN DE LA ACTIVIDAD</div>
+                <p><strong>Formato:</strong> Texto libre (descripción detallada)</p>
+                <p><strong>Descripción:</strong> Explique en detalle qué actividad realizó durante la visita.</p>
+                <p><strong>Ejemplos:</strong></p>
+                <ul>
+                    <li>Auditoría de documentación contable del mes de agosto</li>
+                    <li>Capacitación al personal sobre nuevo sistema de gestión</li>
+                    <li>Reunión de coordinación con el equipo administrativo</li>
+                    <li>Revisión de inventario y control de stock</li>
+                    <li>Mantenimiento preventivo de equipos informáticos</li>
+                </ul>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿ACTIVIDAD FINALIZADA? (SI/NO)</div>
+                <p><strong>Formato:</strong> Selección (SI o NO)</p>
+                <p><strong>Descripción:</strong> Indique si la actividad planificada fue completada en su totalidad.</p>
+                <p><strong>SI:</strong> La actividad fue completada satisfactoriamente</p>
+                <p><strong>NO:</strong> La actividad requiere seguimiento o una nueva visita</p>
+            </div>
+            
+            <h3>3.3 Sección: Documentación Entregada</h3>
+            
+            <div class="field-description">
+                <div class="field-name">ESCRIBA EL NOMBRE DEL DOCUMENTO QUE USTED ENTREGA</div>
+                <p><strong>Formato:</strong> Texto libre</p>
+                <p><strong>Descripción:</strong> Liste todos los documentos que usted entregó durante la visita.</p>
+                <p><strong>Ejemplos:</strong></p>
+                <ul>
+                    <li>Informe de auditoría mensual - Agosto 2025</li>
+                    <li>Factura N° 0001-00005432</li>
+                    <li>Contrato de servicios - Cliente XYZ</li>
+                    <li>Manual de procedimientos actualizado</li>
+                    <li>Certificado de capacitación</li>
+                </ul>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">FIRMA Y ACLARACIÓN de quien recibió la documentación</div>
+                <p><strong>Formato:</strong> Texto libre</p>
+                <p><strong>Descripción:</strong> Datos de la persona que recibió los documentos.</p>
+                <p><strong>Debe incluir:</strong> Nombre completo, cargo, firma</p>
+            </div>
+            
+            <h3>3.4 Sección: Documentación Recibida</h3>
+            
+            <div class="field-description">
+                <div class="field-name">ESCRIBA EL NOMBRE DEL DOCUMENTO QUE USTED RECIBE</div>
+                <p><strong>Formato:</strong> Texto libre</p>
+                <p><strong>Descripción:</strong> Liste todos los documentos que usted recibió durante la visita.</p>
+                <p><strong>Ejemplos:</strong></p>
+                <ul>
+                    <li>Balance mensual - Septiembre 2025</li>
+                    <li>Libro de actas firmado</li>
+                    <li>Comprobantes de pago procesados</li>
+                    <li>Reporte de incidencias del período</li>
+                </ul>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">FIRMA Y ACLARACIÓN de quien entregó la documentación</div>
+                <p><strong>Formato:</strong> Texto libre</p>
+                <p><strong>Descripción:</strong> Datos de la persona que entregó los documentos.</p>
+                <p><strong>Debe incluir:</strong> Nombre completo, cargo, firma</p>
+            </div>
+        </div>
+        
+        <!-- Sección 4: Guía de Uso Paso a Paso -->
+        <div class="section">
+            <h2>4. GUÍA DE USO PASO A PASO</h2>
+            
+            <ol class="steps">
+                <li>
+                    <strong>Acceda al Sistema</strong><br>
+                    Abra su navegador web e ingrese la URL: https://registro-visitas-delta.vercel.app/
+                </li>
+                
+                <li>
+                    <strong>Consulte el Instructivo</strong><br>
+                    Lea el mensaje de referencia al instructivo "I-RD-01" disponible en la carpeta Calidad Genéricos/Instructivos. Este documento contiene pautas adicionales para el correcto llenado del formulario.
+                </li>
+                
+                <li>
+                    <strong>Complete los Datos de la Primera Sucursal</strong><br>
+                    Ingrese la hora de llegada, hora de salida, y solicite al responsable que complete su firma y aclaración.
+                </li>
+                
+                <li>
+                    <strong>Si Visitó una Segunda Sucursal</strong><br>
+                    Complete los mismos campos para la Sucursal 2. Si solo visitó una sucursal, puede dejar estos campos en blanco.
+                </li>
+                
+                <li>
+                    <strong>Registre las Actividades Realizadas</strong><br>
+                    Complete todos los campos de la tabla de actividades, siendo lo más específico posible en las descripciones.
+                </li>
+                
+                <li>
+                    <strong>Documente los Intercambios</strong><br>
+                    Liste todos los documentos entregados y recibidos, y solicite las firmas correspondientes.
+                </li>
+                
+                <li>
+                    <strong>Revise la Información</strong><br>
+                    Antes de enviar, verifique que todos los campos obligatorios estén completos y que la información sea precisa.
+                </li>
+                
+                <li>
+                    <strong>Envíe el Formulario</strong><br>
+                    Haga clic en el botón de envío para registrar la visita en el sistema.
+                </li>
+            </ol>
+        </div>
+        
+        <!-- Sección 5: Formatos y Estándares -->
+        <div class="section">
+            <h2>5. FORMATOS Y ESTÁNDARES</h2>
+            
+            <h3>5.1 Formato de Horarios</h3>
+            <div class="info-box">
+                Todos los horarios deben ingresarse en formato de 24 horas (HH:MM).<br>
+                <strong>Correcto:</strong> 09:30, 14:45, 23:15<br>
+                <strong>Incorrecto:</strong> 9:30 AM, 2:45 PM, 11:15 PM
+            </div>
+            
+            <h3>5.2 Nomenclatura de Documentos</h3>
+            <p>Al registrar documentos, incluya la siguiente información cuando sea aplicable:</p>
+            <ul>
+                <li><strong>Tipo de documento:</strong> Informe, Factura, Contrato, etc.</li>
+                <li><strong>Número o identificador:</strong> N°, ID, Código</li>
+                <li><strong>Período o fecha:</strong> Mes/Año, fecha específica</li>
+                <li><strong>Cliente/Proyecto:</strong> Si corresponde</li>
+            </ul>
+            
+            <h3>5.3 Descripciones de Actividades</h3>
+            <p>Las descripciones deben ser:</p>
+            <ul>
+                <li><strong>Específicas:</strong> Evite descripciones genéricas como "trabajo administrativo"</li>
+                <li><strong>Claras:</strong> Use lenguaje profesional y comprensible</li>
+                <li><strong>Completas:</strong> Incluya detalles relevantes de la actividad</li>
+                <li><strong>Concisas:</strong> Sea breve pero informativo</li>
+            </ul>
+        </div>
+        
+        <!-- Sección 6: Alcance del Sistema -->
+        <div class="section">
+            <h2>6. ALCANCE DEL SISTEMA</h2>
+            
+            <h3>6.1 Funcionalidades Incluidas</h3>
+            <table>
+                <tr>
+                    <th>Funcionalidad</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>Registro de Visitas</td>
+                    <td>Documentación completa de visitas a sucursales</td>
+                </tr>
+                <tr>
+                    <td>Control de Horarios</td>
+                    <td>Registro de ingresos y egresos con precisión de minutos</td>
+                </tr>
+                <tr>
+                    <td>Múltiples Sucursales</td>
+                    <td>Capacidad de registrar hasta 2 sucursales por visita</td>
+                </tr>
+                <tr>
+                    <td>Detalle de Actividades</td>
+                    <td>Descripción exhaustiva de las tareas realizadas</td>
+                </tr>
+                <tr>
+                    <td>Gestión Documental</td>
+                    <td>Registro de documentos entregados y recibidos</td>
+                </tr>
+                <tr>
+                    <td>Firmas Digitales</td>
+                    <td>Espacio para firmas y aclaraciones de responsables</td>
+                </tr>
+            </table>
+            
+            <h3>6.2 Casos de Uso</h3>
+            
+            <div class="subsection">
+                <h4>Auditorías Internas</h4>
+                <p>Registre auditorías realizadas en las sucursales, documentando hallazgos y entregas de informes.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>Capacitaciones</h4>
+                <p>Documente sesiones de capacitación, participantes y materiales entregados.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>Reuniones Administrativas</h4>
+                <p>Registre reuniones de coordinación, temas tratados y acuerdos alcanzados.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>Mantenimiento y Soporte</h4>
+                <p>Documente servicios de mantenimiento, reparaciones o soporte técnico prestado.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>Entregas y Recepciones</h4>
+                <p>Registre intercambios de documentación importante entre oficinas.</p>
+            </div>
+            
+            <h3>6.3 Limitaciones</h3>
+            <div class="important-note">
+                <strong>Importante tener en cuenta:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>El formulario debe completarse durante la visita, el horario de llegada en cuanto se arriva a Administración</li>
+                    <li>Máximo de 1 empresa por registro (para más empresas , genere un nuevo formulario)</li>
+                    <li>Se requiere conexión a Internet para acceder y enviar el formulario</li>
+                    <li>El formulario es indivdual, deber ser cargado por cada persona que realice la visita</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Sección 7: Buenas Prácticas -->
+        <div class="section">
+            <h2>7. BUENAS PRÁCTICAS</h2>
+            
+            <h3>7.1 Antes de la Visita</h3>
+            <ul>
+                <li>Tenga a mano la URL del sistema para acceso rápido</li>
+                <li>Consulte el instructivo I-RD-01 para recordar los procedimientos</li>
+                <li>Prepare una lista de documentos que necesita entregar o recoger</li>
+                <li>Verifique que su dispositivo tenga conexión a Internet</li>
+            </ul>
+            
+            <h3>7.2 Durante la Visita</h3>
+            <ul>
+                <li>Registre los horarios en el momento exacto usando los botones de la app</li>
+                <li>Tome notas detalladas de las actividades realizadas</li>
+                <li>Solicite las firmas de los responsables antes de retirarse</li>
+                <li>Verifique que todos los documentos entregados/recibidos estén listados</li>
+            </ul>
+            
+            <h3>7.3 Al Completar el Formulario</h3>
+            <ul>
+                <li>El formulario se termina de completar al llegar a Administración presionando el botón de Horario de Llegada</li>
+                <li>Luego, al presionar el boton Guardar PDF, se generará un archivo en su dispositivo</li>
+                <li>Revise cada campo antes de enviar</li>
+                <li>Asegúrese de que las descripciones sean claras y completas</li>
+                <li>Verifique que todos los documentos estén correctamente identificados</li>
+                <li>Confirme que todas las firmas y aclaraciones estén registradas</li>
+            </ul>
+            
+            
+        </div>
+        
+        <!-- Sección 8: Preguntas Frecuentes -->
+        <div class="section">
+            <h2>8. PREGUNTAS FRECUENTES</h2>
+            
+            <div class="field-description">
+                <div class="field-name">¿Qué hago si visité más de 2 Empresas?</div>
+                <p>Complete un primer formulario con la o las sucursales y genere un segundo formulario para las empresas adicionales.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿Es obligatorio completar la sección de Sucursal 2?</div>
+                <p>No, solo debe completarla si efectivamente visitó una segunda sucursal. Si solo visitó una, deje esos campos en blanco.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿Puedo guardar el formulario a mitad de camino?</div>
+                <p>El sistema realiza un guardado automatica cada cierto periodo de tiempo. Al volver a abrir el navegador, te dara aviso de un formulario previamente cargado y si queres traerlo de nuevo. Tenes que Aceptar esta pregunta.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿Qué hago si cometí un error después de enviar?</div>
+                <p>Contacte al administrador del sistema para realizar correcciones. Mantenga un registro de la información correcta mientras se procesa el cambio.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿Puedo acceder al formulario desde mi teléfono móvil?</div>
+                <p>Sí, el sistema es responsive y se adapta a dispositivos móviles. Asegúrese de tener una conexión estable a Internet.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿Dónde encuentro el instructivo I-RD-01?</div>
+                <p>El instructivo está disponible en la carpeta "Calidad Genéricos/Instructivos" del sistema de gestión documental de la empresa.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿Qué hago si no obtuve una firma del responsable?</div>
+                <p>Debe coordinar con el responsable de la sucursal para obtener su firma antes de completar el formulario. Sin la firma, el registro puede considerarse incompleto.</p>
+            </div>
+            
+            <div class="field-description">
+                <div class="field-name">¿Puedo adjuntar archivos al formulario?</div>
+                <p>No. El sistema no pude adjuntar ningun tipo de archivo.</p>
+            </div>
+        </div>
+        
+        <!-- Sección 9: Soporte y Contacto -->
+        <div class="section">
+            <h2>9. SOPORTE Y CONTACTO</h2>
+            
+            <h3>9.1 Asistencia Técnica</h3>
+            <p>Si experimenta problemas técnicos con el sistema, siga estos pasos:</p>
+            <ol class="steps">
+                <li>
+                    <strong>Verifique su Conexión a Internet</strong><br>
+                    Asegúrese de tener una conexión estable antes de reportar un problema.
+                </li>
+                <li>
+                    <strong>Contacte al Soporte</strong><br>
+                    Si el problema continúa, comuníquese con el área de sistemas o el administrador del sistema.
+                </li>
+            </ol>
+            
+            <h3>9.2 Sugerencias y Mejoras</h3>
+            <div class="info-box">
+                Sus comentarios son importantes para mejorar el sistema. Si tiene sugerencias sobre nuevas funcionalidades o mejoras, comuníquelas al área sistemas de Manzur Administraciones.
+            </div>
+        </div>
+        
+        <!-- Sección 10: Glosario -->
+        <div class="section">
+            <h2>10. GLOSARIO DE TÉRMINOS</h2>
+            
+            <table>
+                <tr>
+                    <th>Término</th>
+                    <th>Definición</th>
+                </tr>
+                <tr>
+                    <td><strong>Aclaración</strong></td>
+                    <td>Nombre completo escrito de forma legible</td>
+                </tr>
+                <tr>
+                    <td><strong>Egreso</strong></td>
+                    <td>Salida o retiro de una sucursal o instalación</td>
+                </tr>
+                <tr>
+                    <td><strong>Formulario</strong></td>
+                    <td>Documento estructurado para recopilar información de manera organizada</td>
+                </tr>
+                <tr>
+                    <td><strong>I-RD-01</strong></td>
+                    <td>Código del instructivo de referencia para el registro de visitas</td>
+                </tr>
+                <tr>
+                    <td><strong>Ingreso</strong></td>
+                    <td>Entrada o llegada a una sucursal o instalación</td>
+                </tr>
+                <tr>
+                    <td><strong>Registro</strong></td>
+                    <td>Anotación formal y documentada de una actividad o evento</td>
+                </tr>
+                <tr>
+                    <td><strong>Responsable</strong></td>
+                    <td>Persona a cargo de una sucursal o área específica</td>
+                </tr>
+                <tr>
+                    <td><strong>Sucursal</strong></td>
+                    <td>Oficina o establecimiento dependiente de Manzur Administraciones</td>
+                </tr>
+                <tr>
+                    <td><strong>URL</strong></td>
+                    <td>Dirección web para acceder a un sitio o aplicación en Internet</td>
+                </tr>
+                <tr>
+                    <td><strong>Validación</strong></td>
+                    <td>Confirmación mediante firma de que la información es correcta</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Sección 11: Anexos -->
+        <div class="section">
+            <h2>11. ANEXOS</h2>
+            
+            <h3>11.1 Ejemplo Completo de Registro</h3>
+            <div class="field-description">
+                <strong>Escenario:</strong> Auditor visitó dos sucursales para revisar documentación contable.
+            </div>
+            
+            <h4>SUCURSAL 1 - OFICINA CENTRAL</h4>
+            <table>
+                <tr>
+                    <th>Campo</th>
+                    <th>Valor Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Horario de Ingreso</td>
+                    <td>09:00</td>
+                </tr>
+                <tr>
+                    <td>Horario de Egreso</td>
+                    <td>12:30</td>
+                </tr>
+                <tr>
+                    <td>Firma y Aclaración</td>
+                    <td>María González - Gerente Administrativa - Firma</td>
+                </tr>
+            </table>
+            
+            <h4>SUCURSAL 2 - SUCURSAL NORTE</h4>
+            <table>
+                <tr>
+                    <th>Campo</th>
+                    <th>Valor Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Horario de Ingreso</td>
+                    <td>14:00</td>
+                </tr>
+                <tr>
+                    <td>Horario de Egreso</td>
+                    <td>16:45</td>
+                </tr>
+                <tr>
+                    <td>Firma y Aclaración</td>
+                    <td>Carlos Pérez - Supervisor Contable - Firma</td>
+                </tr>
+            </table>
+            
+            <h4>DETALLE DE ACTIVIDADES</h4>
+            <table>
+                <tr>
+                    <th>Campo</th>
+                    <th>Valor Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Hs. Inicio</td>
+                    <td>09:15</td>
+                </tr>
+                <tr>
+                    <td>Hs. Finalización</td>
+                    <td>16:30</td>
+                </tr>
+                <tr>
+                    <td>Área/Sector</td>
+                    <td>Departamento de Contabilidad</td>
+                </tr>
+                <tr>
+                    <td>Descripción</td>
+                    <td>Auditoría trimestral de registros contables. Se revisaron libros mayores, comprobantes de gastos y conciliaciones bancarias del período julio-septiembre 2025. Se verificó cumplimiento de procedimientos internos.</td>
+                </tr>
+                <tr>
+                    <td>¿Actividad Finalizada?</td>
+                    <td>SI</td>
+                </tr>
+            </table>
+            
+            <h4>DOCUMENTACIÓN ENTREGADA</h4>
+            <table>
+                <tr>
+                    <th>Campo</th>
+                    <th>Valor Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Documento Entregado</td>
+                    <td>Informe de Auditoría Trimestral N° 03-2025 - Recomendaciones y Observaciones</td>
+                </tr>
+                <tr>
+                    <td>Firma y Aclaración</td>
+                    <td>María González - Gerente Administrativa - Firma</td>
+                </tr>
+            </table>
+            
+            <h4>DOCUMENTACIÓN RECIBIDA</h4>
+            <table>
+                <tr>
+                    <th>Campo</th>
+                    <th>Valor Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Documento Recibido</td>
+                    <td>Copia de Libros Contables digitalizados - Período Q3 2025 (USB)</td>
+                </tr>
+                <tr>
+                    <td>Firma y Aclaración</td>
+                    <td>Carlos Pérez - Supervisor Contable - Firma</td>
+                </tr>
+            </table>
+            
+            <h3>11.2 Checklist Previo al Envío</h3>
+            <div class="info-box">
+                Antes de enviar el formulario, verifique que:
+                <ul style="margin-top: 10px;">
+                    <li>☑️ Todos los horarios estén en formato 24 horas (HH:MM)</li>
+                    <li>☑️ Las firmas de responsables estén completas</li>
+                    <li>☑️ La descripción de actividades sea detallada y clara</li>
+                    <li>☑️ Todos los documentos entregados/recibidos estén listados</li>
+                    <li>☑️ Los datos de área/sector sean específicos</li>
+                    <li>☑️ Se haya indicado si la actividad finalizó o no</li>
+                    <li>☑️ No haya campos obligatorios vacíos</li>
+                    <li>☑️ La información sea precisa y verificable</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Sección 12: Control de Versiones -->
+        <div class="section">
+            <h2>12. CONTROL DE VERSIONES DEL MANUAL</h2>
+            
+            <table>
+                <tr>
+                    <th>Versión</th>
+                    <th>Fecha</th>
+                    <th>Descripción de Cambios</th>
+                    <th>Autor</th>
+                </tr>
+                <tr>
+                    <td>1.0</td>
+                    <td>Septiembre 2025</td>
+                    <td>Versión inicial del manual</td>
+                    <td>Leonardo Campos</td>
+                </tr>
+            </table>
+            
+            <div class="important-note">
+                Este manual es un documento vivo que se actualizará según sea necesario. Asegúrese de consultar siempre la versión más reciente.
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p style="font-size: 1.2em; margin-bottom: 10px;"><strong>Manzur Administraciones</strong></p>
+        <p>Sistema de Registro de Visitas</p>
+        <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+            Manual de Usuario - Versión 1.0 - Septiembre 2025
+        </p>
+        <p style="margin-top: 10px; font-size: 0.85em; opacity: 0.7;">
+            Para soporte técnico o consultas, contacte al administrador del sistema
+        </p>
+    </div>
+</body>
 </html>
